@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Form Example</title>
+</head>
+<body>
+  <h1>Submit Form</h1>
+  <form id="myForm">
+    <label for="Order_ID">Order_ID:</label>
+    <input type="text" id="Order_ID" name="Order_ID" required><br><br>
+    
+    <label for="Receipt_No">Receipt_No:</label>
+    <input type="Receipt_No" id="Receipt_No" name="Receipt_No" required><br><br>
+    
+    <input type="submit" value="Submit">
+  </form>
+
+  <script>
+    document.getElementById('myForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent the form from submitting
+
+      // Get form data
+      var formData = new FormData(this);
+
+      // Create a new XMLHttpRequest object
+      var xhr = new XMLHttpRequest();
+
+      // Configure the request
+      xhr.open('POST', 'http://localhost:3001/hbl', true);
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+      // Handle the request response
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          // Request was successful
+          console.log('Form submitted successfully');
+          // Do something with the response, if needed
+        } else {
+          // Request failed
+          console.log('Form submission failed. Status: ' + xhr.status);
+        }
+      };
+
+      // Send the request
+      xhr.send(new URLSearchParams(formData));
+    });
+  </script>
+</body>
+</html>
